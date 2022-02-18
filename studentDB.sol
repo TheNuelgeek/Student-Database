@@ -1,5 +1,5 @@
- SPDX-License-Identifier MIT
-pragma solidity 0.8.4;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
 
 contract StudentDataBase{
 
@@ -15,9 +15,9 @@ contract StudentDataBase{
 
     address admin;
     uint ID = 1000;
-    mapping(address = uint) private studentToID;
-    mapping(uint = StudentRec) internal IdToRecords;
-    mapping(uint = StudentRec) internal dropouts;
+    mapping(address => uint) private studentToID;
+    mapping(uint => StudentRec) internal IdToRecords;
+    mapping(uint => StudentRec) internal dropouts;
     StudentRec[] studentRecords;
 
     struct StudentRec {
@@ -35,7 +35,7 @@ contract StudentDataBase{
     }
 
     modifier onlyAdmin{
-        require(msg.sender == admin, only admin can call this function);
+        require(msg.sender == admin, "only admin can call this function");
         _;
     }
 
@@ -90,7 +90,7 @@ contract StudentDataBase{
     }
 
     function dropOut(uint256 _ID) external onlyAdmin returns(bool){
-        require(IdToRecords[_ID].ID != 0, Student does not exist );
+        require(IdToRecords[_ID].ID != 0, "Student does not exist");
         dropouts[_ID] = IdToRecords[_ID];
         delete IdToRecords[_ID];
 
@@ -119,7 +119,7 @@ contract StudentDataBase{
 
         // RECOMMENDED RECORD
         uint indexToBeRemove;
-        for(uint i; i  studentRecords.length; i++){
+        for(uint i; i  < studentRecords.length; i++){
             if(studentRecords[i].ID == _ID){
                 indexToBeRemove = i;
                 delete IdToRecords[indexToBeRemove];
