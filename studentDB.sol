@@ -28,7 +28,7 @@ contract StudentDataBase{
         string state_of_origin;
     }
 
-    // FUNCTION
+    // FUNCTIONS
 
     constructor(address _admin){
         admin = _admin;
